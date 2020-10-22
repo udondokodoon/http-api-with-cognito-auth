@@ -1,7 +1,7 @@
 name: terraform apply
 on:
   push:
-    branches: [ apply ]
+    tags: [ apply ]
 jobs:
   apply:
     name: terraform apply
