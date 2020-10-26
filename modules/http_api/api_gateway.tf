@@ -21,7 +21,7 @@ resource "aws_apigatewayv2_api" "http_api" {
 }
 
 
-resource "api_gatewayv2_authorizer" "authorizer" {
+resource "aws_apigatewayv2_authorizer" "authorizer" {
   name = var.name
   api_id = aws_apigatewayv2_api.http_api.api_id
   authorizer_type = "JWT"
