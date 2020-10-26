@@ -27,7 +27,7 @@ resource "aws_apigatewayv2_authorizer" "authorizer" {
   authorizer_type = "JWT"
   identity_sources = ["$request.headers.Authorization"]
 
-  jwt_configurations {
+  jwt_configuration {
     audience = "sample_http_api"
     issuer = "https://${var.cognito_endpoint}"
   }
