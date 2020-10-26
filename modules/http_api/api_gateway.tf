@@ -23,7 +23,7 @@ resource "aws_apigatewayv2_api" "http_api" {
 
 resource "aws_apigatewayv2_authorizer" "authorizer" {
   name = var.name
-  api_id = aws_apigatewayv2_api.http_api.api_id
+  api_id = aws_apigatewayv2_api.http_api.id
   authorizer_type = "JWT"
   identity_sources = ["$request.headers.Authorization"]
 
