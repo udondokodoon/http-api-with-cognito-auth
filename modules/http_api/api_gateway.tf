@@ -2,7 +2,6 @@ resource "aws_apigatewayv2_api" "http_api" {
   name          = var.name
   description   = var.name
   protocol_type = "HTTP"
-  body          = var.fixed_body
 
   cors_configuration {
     allow_credentials = false
@@ -20,17 +19,29 @@ resource "aws_apigatewayv2_api" "http_api" {
   disable_execute_api_endpoint = false
 }
 
+resource "aws_apigatewayv2_route" "default_route" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "GET /"
+}
 
-resource "aws_apigatewayv2_authorizer" "authorizer" {
-  name = var.name
-  api_id = aws_apigatewayv2_api.http_api.id
-  authorizer_type = "JWT"
-  identity_sources = ["$request.headers.Authorization"]
+resource "aws_apigatewayv2_stage" "devel" {
+  api_id      = aws_apigatewayv2_api.http_api.id
+  name        = "devel"
+  auto_deploy = true
 
-  jwt_configuration {
-    audience = ["sample_http_api"]
-    issuer = "https://${var.cognito_endpoint}"
+  route_settings {
+    route_key = "GET /"
   }
 }
 
+resource "aws_apigatewayv2_authorizer" "authorizer" {
+  name             = var.name
+  api_id           = aws_apigatewayv2_api.http_api.id
+  authorizer_type  = "JWT"
+  identity_sources = ["$request.header.Authorization"]
 
+  jwt_configuration {
+    audience = ["sample_http_api"]
+    issuer   = "https://${var.jwt_issuer}"
+  }
+}
