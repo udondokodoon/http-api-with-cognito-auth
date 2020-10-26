@@ -2,6 +2,8 @@ module "http_api" {
   source = "./modules/http_api"
   name   = "usd_sample_http_api"
 
+  fixed_body = "hello world"
+
   cognito_endpoint = module.user_pool.endpoint
 }
 
