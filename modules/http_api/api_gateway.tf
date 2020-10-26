@@ -5,7 +5,7 @@ resource "aws_apigatewayv2_api" "http_api" {
   body          = var.fixed_body
 
   cors_configuration {
-    allow_credentials = []
+    allow_credentials = false
     allow_headers     = []
     allow_methods     = ["GET", "OPTIONS"]
     allow_origins     = ["*"]
