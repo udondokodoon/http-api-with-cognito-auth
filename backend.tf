@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "usd-test"
+    bucket = "usd-xre-test"
     key    = "tfstate/http-api-with-cognito-auth"
     region = "ap-northeast-1"
   }
